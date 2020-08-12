@@ -1,0 +1,48 @@
+---
+title: "Assignment 06"
+author: "Joshua Wade"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(urltools)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r formingdata, echo=FALSE, message=FALSE}
+raw_data1 <- read_csv("owid-covid-data.csv")
+data1 <- raw_data1 %>% select(date, location, diabetes_prevalence, aged_70_older, total_deaths) %>% rename(Country = "location") %>% filter(date == "2020-06-30") 
+write.csv(data1, "C:/Users/JWgiz/OneDrive/Desktop/Assignment-06" )
+```
+
+```{r formingdata2, echo=FALSE, message=FALSE}
+data2 <- raw_data1 %>% select(date, location, total_deaths) %>% rename(Country = "location")
+write.csv(data1, "C:/Users/JWgiz/OneDrive/Desktop/Assignment-06" )
+```
+
+```{r graphing1, echo=FALSE, message=FALSE}
+ggplot(data1, aes(diabetes_prevalence, total_deaths), color = "Country") + geom_point() + theme_linedraw() + labs(x = "Has Diabetes", y = "Total Deaths", title = "Deaths due to Diabetes")
+```
+
+**Interpretation:**
+
+I'll add this later.
+
+```{r graphing2, echo=FALSE, message=FALSE}
+ggplot(data1, aes(aged_70_older, total_deaths), color = "Country") + geom_point() + theme_linedraw() + labs(x = "Ages over 70", y = "Total Deaths", title = "Individuals over 70 Deaths")
+```
+
+```{r linegraph, echo=FALSE, message=FALSE}
+ggplot(data2, aes(date, total_deaths)) + geom_line()
+```
+
+
+**Answer:**
+The country that exceeded 1000 deaths was China which makes sense since thats where this virus outbroke. there is not a exact date but we can say its between 01-09-20 and 02-01-20
